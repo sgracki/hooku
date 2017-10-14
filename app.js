@@ -18,6 +18,10 @@ app.get('/', function(req, res) {
     res.send('hi');
 });
 
+app.post('/webhook', function(req, res) {
+    return res.sendStatus(200);
+})
+
 app.listen(port, function() {
     console.log('Our app is running on http://localhost:' + port);
 });
