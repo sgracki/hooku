@@ -1,6 +1,8 @@
 var express = require('express');
 var app = express();
 
+var secrets = require('./config/secrets')
+
 // set the port of our application
 // process.env.PORT lets the port be set by Heroku
 var port = process.env.PORT || 5000;
@@ -19,7 +21,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/webhook', function(req, res) {
-    if (req.query['hub.verify_token'] === 'YOUR_VERIFY_TOKEN') {
+    if (req.query['hub.verify_token'] === secrets.ACCESS_TOKEN) {
         res.send(req.query['hub.challenge']);
     } else {
         res.send('Error, wrong validation token');
