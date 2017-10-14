@@ -18,6 +18,10 @@ app.get('/', function(req, res) {
     res.send('hi');
 });
 
+app.get('/webhook', function(req, res) {
+    return res.sendStatus(200);
+})
+
 app.post('/webhook', function(req, res) {
     return res.sendStatus(200);
 })
