@@ -5,6 +5,7 @@ var request = require('request');
 var mongoose = require('mongoose');
 var secrets = require('./config/secrets');
 var User = require('./models/User');
+var path = require('path');
 
 // set the port of our application
 // process.env.PORT lets the port be set by Heroku
