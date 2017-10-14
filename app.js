@@ -53,47 +53,33 @@ app.post('/webhook', function(req, res) {
 
             var event = JSON.parse(JSON.stringify(myEvent));
 
-            async.parallel({
-                user: function (callback) {
-                    User.findOne({
-                        senderId: event.sender.id,
-                        recipientId: event.recipient.id
-                    }).exec(function (err, user) {
-                        callback(null, user);
-                    });
-                }
-            }, function (err, results) {
-                var user = results.user;
+            var user = {};
+                user.senderId = event.sender.id;
+                user.recipientId = event.recipient.id;
 
-                if (!user) {
-                    user = new User({});
-                    user.senderId = event.sender.id;
-                    user.recipientId = event.recipient.id;
-                }
-                if (results.fbGraph) {
-                    user.firstname = results.fbGraph.first_name;
-                    user.name = results.fbGraph.last_name;
-                    user.profilePic = results.fbGraph.profile_pic;
-                    user.locale = results.fbGraph.locale;
-                    user.timezone = results.fbGraph.timezone;
-                    user.gender = results.fbGraph.gender;
-                }
+            if (results.fbGraph) {
+                user.firstname = results.fbGraph.first_name;
+                user.name = results.fbGraph.last_name;
+                user.profilePic = results.fbGraph.profile_pic;
+                user.locale = results.fbGraph.locale;
+                user.timezone = results.fbGraph.timezone;
+                user.gender = results.fbGraph.gender;
+            }
 
-                request({
-                    url: 'https://graph.facebook.com/v2.6/me/messages',
-                    qs: {access_token: 'EAABvjrWKCeMBAA5Di9rOmargy1561JqEY6mhCPPiO2kLw82O52LZAAIFbUKaM6ZAiuneVE3z8EIzU6dgWYdqsQNhBFCFIJLCZCcvYNvs42apkPsyJcOjFhXWI0ngRA8QgOxWvsGXN032XB6xKdtY8mbru9zZAwVFdnFZAW1cZC64yD2EuHHkOt'},
-                    method: 'POST',
-                    json: {
-                        recipient: { id: event.sender.id },
-                        message: { text: event.message.text },
-                    }
-                }, function (error, response, body) {
-                    if (error) {
-                        console.log('Error sending message: ', error);
-                    } else if (response.body.error) {
-                        console.log('Error: ', response.body.error);
-                    }
-                });
+            request({
+                url: 'https://graph.facebook.com/v2.6/me/messages',
+                qs: {access_token: 'EAABvjrWKCeMBAA5Di9rOmargy1561JqEY6mhCPPiO2kLw82O52LZAAIFbUKaM6ZAiuneVE3z8EIzU6dgWYdqsQNhBFCFIJLCZCcvYNvs42apkPsyJcOjFhXWI0ngRA8QgOxWvsGXN032XB6xKdtY8mbru9zZAwVFdnFZAW1cZC64yD2EuHHkOt'},
+                method: 'POST',
+                json: {
+                    recipient: { id: event.sender.id },
+                    message: { text: event.message.text },
+                }
+            }, function (error, response, body) {
+                if (error) {
+                    console.log('Error sending message: ', error);
+                } else if (response.body.error) {
+                    console.log('Error: ', response.body.error);
+                }
             });
         }
     }
