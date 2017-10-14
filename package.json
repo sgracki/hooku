@@ -14,6 +14,7 @@
   "author": "team97",
   "license": "MIT",
   "dependencies": {
+    "async": "^2.5.0",
     "body-parser": "^1.18.2",
     "express": "^4.9.8",
     "mongoose": "^4.12.2",
