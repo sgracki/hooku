@@ -61,14 +61,6 @@ app.post('/webhook', function(req, res) {
     res.sendStatus(200);
 })
 
-{ sender: { id: '1453795171401725' },
-    recipient: { id: '275471282943084' },
-timestamp: 1508000809191,
-message: 
-{ mid: 'mid.$cAACgeasfIsZlTR-I51fG9otCwdOv',
-seq: 1453033,
-text: 'kkk' } }
-
 app.listen(port, function() {
     console.log('Our app is running on http://localhost:' + port);
 });
