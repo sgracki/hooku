@@ -29,7 +29,18 @@ app.get('/webhook', function(req, res) {
 })
 
 app.post('/webhook', function(req, res) {
-    return res.sendStatus(200);
+
+    for (var jj = 0; jj < req.body.entry.length;jj++) {
+        
+        var messaging_events = req.body.entry[jj].messaging;
+        for (var i = 0; i < messaging_events.length; i++) {
+            var myEvent = req.body.entry[jj].messaging[i];
+
+            console.log(JSON.parse(myEvent));
+        }
+    }
+
+    res.sendStatus(200);
 })
 
 app.listen(port, function() {
