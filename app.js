@@ -19,7 +19,11 @@ app.get('/', function(req, res) {
 });
 
 app.get('/webhook', function(req, res) {
-    return res.sendStatus(200);
+    if (req.query['hub.verify_token'] === 'YOUR_VERIFY_TOKEN') {
+        res.send(req.query['hub.challenge']);
+    } else {
+        res.send('Error, wrong validation token');
+    }
 })
 
 app.post('/webhook', function(req, res) {
