@@ -12,7 +12,7 @@ var async = require('async');
 // process.env.PORT lets the port be set by Heroku
 var port = process.env.PORT || 5000;
 
-mongoose.connect('mongodb://localhost:27017/hooku');
+mongoose.connect('mongodb://sgnanex@gmail.com:Szynekzaq12wsx@hooku.herokuapp.com:53312/hooku');
 mongoose.connection.on(`error`, () => {
     console.error(`MongoDB Connection Error. Please make sure that MongoDB is running.`);
 });
