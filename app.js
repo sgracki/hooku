@@ -7,6 +7,9 @@ var secrets = require('./config/secrets')
 // process.env.PORT lets the port be set by Heroku
 var port = process.env.PORT || 5000;
 
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
 // set the view engine to ejs
 // app.set('view engine', 'ejs');
 
