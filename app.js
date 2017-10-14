@@ -1,20 +1,23 @@
-const express = require('express')
-const app = express()
+var express = require('express');
+var app = express();
 
-app.get('/test', function (req, res) {
-  res.send('test')
-})
+// set the port of our application
+// process.env.PORT lets the port be set by Heroku
+var port = process.env.PORT || 5000;
 
+// set the view engine to ejs
+// app.set('view engine', 'ejs');
+
+// make express look in the public directory for assets (css/js/img)
+// app.use(express.static(__dirname + '/public'));
+
+// set the home page route
 app.get('/', function(req, res) {
-    console.log("xdd");
-    res.send("hello dud");
-})
 
-app.post('/webhook', () => {
-    console.log("xdd");
-    res.sendStatus(200)
-})
+    // ejs render automatically looks in the views folder
+    res.send('hi');
+});
 
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!')
-})
+app.listen(port, function() {
+    console.log('Our app is running on http://localhost:' + port);
+});
