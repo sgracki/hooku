@@ -40,7 +40,7 @@ app.post('/webhook', function(req, res) {
         for (var i = 0; i < messaging_events.length; i++) {
             var myEvent = req.body.entry[jj].messaging[i];
 
-            console.log(JSON.parse(myEvent));
+            console.log(myEvent);
         }
     }
 
