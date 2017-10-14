@@ -5,6 +5,11 @@ app.get('/test', function (req, res) {
   res.send('test')
 })
 
+app.get('/', function(req, res) {
+    console.log("xdd");
+    res.send("hello dud");
+})
+
 app.post('/webhook', () => {
     console.log("xdd");
     res.sendStatus(200)
