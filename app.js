@@ -40,12 +40,34 @@ app.post('/webhook', function(req, res) {
         for (var i = 0; i < messaging_events.length; i++) {
             var myEvent = req.body.entry[jj].messaging[i];
 
-            console.log(myEvent);
+            request({
+                url: 'https://graph.facebook.com/v2.6/me/messages',
+                qs: {access_token: 'EAABvjrWKCeMBAA5Di9rOmargy1561JqEY6mhCPPiO2kLw82O52LZAAIFbUKaM6ZAiuneVE3z8EIzU6dgWYdqsQNhBFCFIJLCZCcvYNvs42apkPsyJcOjFhXWI0ngRA8QgOxWvsGXN032XB6xKdtY8mbru9zZAwVFdnFZAW1cZC64yD2EuHHkOt'},
+                method: 'POST',
+                json: {
+                    recipient: {id: myEvent.sender.id},
+                    message: { text: myEvent.message.text },
+                }
+            }, function (error, response, body) {
+                if (error) {
+                    console.log('Error sending message: ', error);
+                } else if (response.body.error) {
+                    console.log('Error: ', response.body.error);
+                }
+            });
         }
     }
 
     res.sendStatus(200);
 })
+
+{ sender: { id: '1453795171401725' },
+    recipient: { id: '275471282943084' },
+timestamp: 1508000809191,
+message: 
+{ mid: 'mid.$cAACgeasfIsZlTR-I51fG9otCwdOv',
+seq: 1453033,
+text: 'kkk' } }
 
 app.listen(port, function() {
     console.log('Our app is running on http://localhost:' + port);
